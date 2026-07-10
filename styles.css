@@ -90,11 +90,52 @@ img { max-width: 100%; height: auto; display: block; }
     min-height: 100vh; display: flex; align-items: center; justify-content: center;
     position: relative; overflow: hidden; padding: 120px 24px 80px;
 }
+.hero-bg-img {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: 0;
+    animation: heroImgPan 20s ease-in-out infinite alternate;
+}
+@keyframes heroImgPan {
+    0% { transform: scale(1.05) translateX(-1%); }
+    100% { transform: scale(1.1) translateX(1%); }
+}
+.hero-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(
+        180deg,
+        rgba(10,10,15,0.7) 0%,
+        rgba(10,10,15,0.4) 40%,
+        rgba(10,10,15,0.6) 70%,
+        rgba(10,10,15,0.95) 100%
+    );
+    z-index: 1;
+}
+.hero-canvas {
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+    z-index: 2; pointer-events: none;
+}
+.notes-container {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 3; pointer-events: none; overflow: hidden;
+}
+.floating-note {
+    position: absolute; bottom: -30px;
+    animation: floatUp linear forwards;
+    text-shadow: 0 0 10px currentColor;
+    pointer-events: none;
+}
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg) scale(0.5); opacity: 0; }
+    10% { opacity: 0.7; }
+    50% { opacity: 0.5; transform: translateY(-45vh) rotate(180deg) scale(1); }
+    100% { opacity: 0; transform: translateY(-100vh) rotate(360deg) scale(0.3); }
+}
 .hero-grid-bg {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 2;
     background:
-        linear-gradient(rgba(212,168,67,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(212,168,67,0.05) 1px, transparent 1px);
+        linear-gradient(rgba(212,168,67,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,168,67,0.04) 1px, transparent 1px);
     background-size: 60px 60px;
     perspective: 500px;
     transform: rotateX(60deg) translateY(-100px) scale(2.5);
@@ -105,13 +146,13 @@ img { max-width: 100%; height: auto; display: block; }
 .hero::before {
     content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
     background: radial-gradient(ellipse at 50% 50%, rgba(212,168,67,0.08) 0%, transparent 60%);
-    animation: pulse 8s ease-in-out infinite;
+    animation: pulse 8s ease-in-out infinite; z-index: 1;
 }
 @keyframes pulse {
     0%, 100% { opacity: 0.5; transform: scale(1); }
     50% { opacity: 1; transform: scale(1.1); }
 }
-.hero-content { text-align: center; position: relative; z-index: 2; }
+.hero-content { text-align: center; position: relative; z-index: 4; }
 .hero-tag {
     font-family: var(--font-display); font-size: 0.75rem; font-weight: 500;
     letter-spacing: 6px; color: var(--gold); margin-bottom: 24px;

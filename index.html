@@ -31,6 +31,10 @@
     </nav>
 
     <section id="hero" class="hero">
+        <img src="trumpetHomeBg.jpeg" alt="" class="hero-bg-img" aria-hidden="true">
+        <div class="hero-overlay"></div>
+        <canvas id="equalizerCanvas" class="hero-canvas"></canvas>
+        <div id="notesContainer" class="notes-container" aria-hidden="true"></div>
         <div class="hero-grid-bg"></div>
         <div class="hero-content">
             <p class="hero-tag">EST. 1980 &mdash; PRETORIA, GAUTENG</p>
@@ -188,6 +192,82 @@
         document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => { links.classList.remove('open'); toggle.classList.remove('active'); }));
         const nav = document.querySelector('.nav');
         window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 50); });
+
+        // === EQUALIZER CANVAS ===
+        (function() {
+            const canvas = document.getElementById('equalizerCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let W, H, bars = [], animId;
+
+            function resize() {
+                const hero = canvas.parentElement;
+                W = canvas.width = hero.offsetWidth;
+                H = canvas.height = hero.offsetHeight;
+            }
+
+            function initBars() {
+                const count = Math.floor(W / 8);
+                bars = [];
+                for (let i = 0; i < count; i++) {
+                    bars.push({
+                        x: i * 8,
+                        h: Math.random() * H * 0.4 + 10,
+                        target: Math.random() * H * 0.4 + 10,
+                        speed: 0.02 + Math.random() * 0.04,
+                        hue: 35 + Math.random() * 25
+                    });
+                }
+            }
+
+            function drawBars() {
+                ctx.clearRect(0, 0, W, H);
+                const barW = 4, gap = 4;
+                bars.forEach(b => {
+                    b.h += (b.target - b.h) * b.speed;
+                    if (Math.abs(b.h - b.target) < 1) {
+                        b.target = Math.random() * H * 0.35 + 15;
+                    }
+                    const grad = ctx.createLinearGradient(b.x, H, b.x, H - b.h);
+                    grad.addColorStop(0, 'rgba(212,168,67,0.0)');
+                    grad.addColorStop(0.5, 'rgba(212,168,67,0.18)');
+                    grad.addColorStop(1, 'rgba(232,201,106,0.35)');
+                    ctx.fillStyle = grad;
+                    ctx.fillRect(b.x, H - b.h, barW, b.h);
+                });
+                animId = requestAnimationFrame(drawBars);
+            }
+
+            resize();
+            initBars();
+            drawBars();
+            window.addEventListener('resize', () => { resize(); initBars(); });
+        })();
+
+        // === FLOATING MUSICAL NOTES ===
+        (function() {
+            const container = document.getElementById('notesContainer');
+            if (!container) return;
+            const symbols = ['\u266A', '\u266B', '\u266C', '\u2669', '\u2665'];
+            const colors = ['#D4A843', '#E8C96A', '#B22222', '#C9942E', '#D4382E'];
+
+            function spawnNote() {
+                const el = document.createElement('span');
+                el.className = 'floating-note';
+                el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                el.style.left = Math.random() * 100 + '%';
+                el.style.fontSize = (14 + Math.random() * 20) + 'px';
+                el.style.color = colors[Math.floor(Math.random() * colors.length)];
+                el.style.opacity = 0;
+                el.style.animationDuration = (4 + Math.random() * 5) + 's';
+                el.style.animationDelay = (Math.random() * 2) + 's';
+                container.appendChild(el);
+                el.addEventListener('animationend', () => el.remove());
+            }
+
+            setInterval(spawnNote, 600);
+            for (let i = 0; i < 6; i++) setTimeout(spawnNote, i * 300);
+        })();
     </script>
 </body>
 </html>
