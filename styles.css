@@ -63,6 +63,8 @@ img { max-width: 100%; height: auto; display: block; }
     max-width: var(--container); margin: 0 auto; padding: 0 24px;
     display: flex; align-items: center; justify-content: space-between;
 }
+.nav-left { display: flex; align-items: center; gap: 12px; }
+.nav-donate-mobile { display: none; }
 .nav-logo {
     font-family: var(--font-display); font-size: 1.4rem; font-weight: 700;
     color: var(--text-bright); letter-spacing: 3px;
@@ -507,6 +509,9 @@ img { max-width: 100%; height: auto; display: block; }
 /* === RESPONSIVE === */
 @media (max-width: 968px) {
     .nav-links { display: none; }
+    .nav-logo span { display: none; }
+    .nav-donate-mobile { display: inline-block; }
+    .nav-links .nav-donate { display: none; }
     .nav-links.open {
         display: flex; flex-direction: column; position: absolute;
         top: 100%; left: 0; width: 100%; background: rgba(10,10,15,0.98);
