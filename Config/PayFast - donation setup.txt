@@ -1,0 +1,24 @@
+Molo Brass Band - PayFast Donation Setup
+
+Provider: PayFast (https://www.payfast.co.za)
+
+Merchant ID:  21835259
+Merchant Key: sej2duf8l3gym
+Passphrase:   NONE SET
+
+Environments:
+  Sandbox (testing): https://sandbox.payfast.co.za/eng/process
+  Live (go-live):    https://www.payfast.co.za/eng/process
+
+To GO LIVE:
+  1. Open index.html and find PAYFAST_LIVE (in the Donations script).
+  2. Change false to true.
+  3. Commit & push - the install turns from "SANDBOX TEST MODE" to "LIVE PAYMENTS".
+
+Recommended security upgrade before going live:
+  - Set a Passphrase in the PayFast dashboard (Settings > Basic Details).
+  - Then generate a payment signature so the merchant key isn't browsable.
+  - Signature requires a small backend (server-side code), which this static
+    site does not have yet - so a basic hosted button is used for now.
+
+Donations land in: assist@molobrass-band.co.za (confirmation_address set).

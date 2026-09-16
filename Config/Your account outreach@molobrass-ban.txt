@@ -1,0 +1,7 @@
+Your account outreach@molobrass-band.co.za has been setup. In your e-mail program, use:
+
+
+Username:outreach@molobrass-band.co.za
+Password:molobrassbandasssists
+POP/IMAP Server:mail.molobrass-band.co.za
+SMTP Server:mail.molobrass-band.co.za port 587

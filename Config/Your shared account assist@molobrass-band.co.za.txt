@@ -1,0 +1,13 @@
+Molo Brass Band - Shared Email Account (assist@molobrass-band.co.za)
+
+Purpose: Website contact form / general assistance (shared by band website admins)
+
+Username: assist@molobrass-band.co.za
+Password: LQRHVVFhzAUDanF36kHS
+
+Incoming (POP/IMAP) Server: mail.molobrass-band.co.za
+Outgoing (SMTP) Server: mail.molobrass-band.co.za (port 587)
+
+Webmail login: https://mail.molobrass-band.co.za
+
+Service provider: telahosting

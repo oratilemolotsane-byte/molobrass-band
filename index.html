@@ -8,21 +8,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="https://molobrassband.co.za/wp-content/uploads/brizy/imgs/MoloLogo-trans-319x271x0x0x319x271x1659117050.png">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
     <div class="scanlines"></div>
 
     <nav class="nav">
         <div class="nav-inner">
-            <a href="#hero" class="nav-logo">MOLO<span class="accent">BRASS</span></a>
+            <a href="#hero" class="nav-logo"><img src="logonav.png" alt="Molo Brass Band logo" class="nav-logo-img"><span>MOLO<span class="accent">BRASS</span></span></a>
             <div class="nav-links">
                 <a href="#about">About</a>
                 <a href="#services">Services</a>
                 <a href="#gallery">Gallery</a>
-                <a href="#support">Support</a>
+<a href="#support">Support</a>
                 <a href="#contact">Contact</a>
+                <a href="#donate" class="nav-donate">Donate</a>
             </div>
             <button class="nav-toggle" aria-label="Toggle menu">
                 <span></span><span></span><span></span>
@@ -37,6 +39,7 @@
         <div id="notesContainer" class="notes-container" aria-hidden="true"></div>
         <div class="hero-grid-bg"></div>
         <div class="hero-content">
+            <img src="logo.png" alt="Molo Brass Band logo" class="hero-logo">
             <p class="hero-tag">EST. 1980 &mdash; PRETORIA, GAUTENG</p>
             <h1 class="hero-title">
                 <span class="line1">Molo</span>
@@ -111,6 +114,12 @@
                 <div class="gallery-item"><img src="https://molobrassband.co.za/wp-content/uploads/2023/01/IMG-20221118-WA0098.jpg" alt="New uniform display" loading="lazy"><div class="gallery-caption">New Uniform Display</div></div>
                 <div class="gallery-item"><img src="https://molobrassband.co.za/wp-content/uploads/2023/01/IMG-20221118-WA0072.jpg" alt="Prayer session" loading="lazy"><div class="gallery-caption">Prayer Before Handover</div></div>
                 <div class="gallery-item"><img src="https://molobrassband.co.za/wp-content/uploads/2023/01/2023-01-13-at-10.37.56.jpg" alt="Instrument handover" loading="lazy"><div class="gallery-caption">Instrument Handover</div></div>
+                <div class="gallery-item"><img src="WhatsApp%20Image%202026-07-15%20at%2014.51.12.jpeg" alt="Molo Brass Band performance" loading="lazy"><div class="gallery-caption">Live Performance - 2026</div></div>
+                <div class="gallery-item"><img src="WhatsApp%20Image%202026-07-15%20at%2014.51.13.jpeg" alt="Molo Brass Band in action" loading="lazy"><div class="gallery-caption">Band in Action - 2026</div></div>
+                <div class="gallery-item"><img src="WhatsApp%20Image%202026-07-15%20at%2015.00.03%20(1).jpeg" alt="Molo Brass Band community event" loading="lazy"><div class="gallery-caption">Community Event - 2026</div></div>
+                <div class="gallery-item"><img src="WhatsApp%20Image%202026-07-15%20at%2015.00.03.jpeg" alt="Molo Brass Band parade" loading="lazy"><div class="gallery-caption">Parade - 2026</div></div>
+                <div class="gallery-item"><img src="images.jpeg" alt="Molo Brass Band photo" loading="lazy"><div class="gallery-caption">The Band</div></div>
+                <div class="gallery-item"><img src="Molobrass-band%20registration%20constitution.jpeg" alt="Molo Brass Band registration constitution" loading="lazy"><div class="gallery-caption">Registration Constitution</div></div>
             </div>
             <h2 class="mt-section">Video <span class="accent">Gallery</span></h2>
             <div class="video-grid">
@@ -134,6 +143,30 @@
                 <div class="support-card"><div class="support-icon">&#9835;</div><h3>Instruments</h3><p>Donate or fund musical instruments for our growing band.</p></div>
                 <div class="support-card"><div class="support-icon">&#10084;</div><h3>Sponsorship</h3><p>Sponsor or fund our operations, events, and community programs.</p></div>
             </div>
+            <div class="donate-panel" id="donate">
+                <div class="donate-mode" id="payfastMode"></div>
+                <h3>Donate <span class="accent">Online</span></h3>
+                <p>Fast, secure and easy &mdash; powered by PayFast. Every contribution helps fund instruments, uniforms and youth programmes.</p>
+                <div class="donation-amounts">
+                    <button type="button" class="donation-amount" data-amount="50">R50</button>
+                    <button type="button" class="donation-amount selected" data-amount="100">R100</button>
+                    <button type="button" class="donation-amount" data-amount="250">R250</button>
+                    <button type="button" class="donation-amount" data-amount="500">R500</button>
+                </div>
+                <input type="number" class="donation-custom" id="donationCustom" placeholder="Custom amount (R)" min="1" step="1" inputmode="numeric">
+                <form id="payfastForm" method="post">
+                    <input type="hidden" name="merchant_id" value="21835259">
+                    <input type="hidden" name="merchant_key" value="sej2duf8l3gym">
+                    <input type="hidden" name="amount" value="100">
+                    <input type="hidden" name="item_name" value="Donation to Molo Brass Band">
+                    <input type="hidden" name="item_description" value="Support the Molo Brass Band youth programme.">
+                    <input type="hidden" name="email_confirmation" value="1">
+                    <input type="hidden" name="confirmation_address" value="assist@molobrass-band.co.za">
+                    <input type="hidden" name="return_url" value="https://molobrass-band.co.za/#donate">
+                    <input type="hidden" name="cancel_url" value="https://molobrass-band.co.za/#donate">
+                    <button type="submit" class="btn btn-donate">Donate Now</button>
+                </form>
+            </div>
             <div class="support-cta"><a href="#contact" class="btn btn-primary btn-large">Sponsor or Fund Us</a></div>
         </div>
     </section>
@@ -156,17 +189,18 @@
                 <div class="contact-info">
                     <div class="contact-item"><h4>Address</h4><p>185 Swaan Street<br>Jan Niemad Park<br>Pretoria, 0186<br>Gauteng, South Africa</p></div>
                     <div class="contact-item"><h4>Phone</h4><p><a href="tel:+27795574390">079 557 4390</a><br><a href="tel:+27843239561">084 323 9561</a></p></div>
-                    <div class="contact-item"><h4>Email</h4><p><a href="mailto:info@molobrassband.co.za">info@molobrassband.co.za</a></p></div>
+                    <div class="contact-item"><h4>Email</h4><p><a href="mailto:assist@molobrass-band.co.za">assist@molobrass-band.co.za</a></p></div>
                     <div class="contact-item"><h4>Follow Us</h4><p><a href="https://www.facebook.com/Molo-Brass-Band" target="_blank" rel="noopener">Facebook</a></p></div>
                 </div>
-                <form class="contact-form" action="#" method="post">
+<form class="contact-form" id="contactForm">
                     <div class="form-row">
                         <input type="text" name="name" placeholder="Your Name" required>
                         <input type="email" name="email" placeholder="Your Email" required>
                     </div>
                     <input type="text" name="subject" placeholder="Subject" required>
                     <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <div id="formStatus" class="form-status"></div>
+                    <button type="submit" class="btn btn-primary" id="contactSubmitBtn">Send Message</button>
                 </form>
             </div>
         </div>
@@ -174,11 +208,11 @@
 
     <footer class="footer">
         <div class="container footer-inner">
-            <div class="footer-brand">MOLO<span class="accent">BRASS</span></div>
+            <div class="footer-brand"><img src="logo.png" alt="Molo Brass Band logo" class="footer-logo">MOLO<span class="accent">BRASS</span></div>
             <p>Imparting Discipline &amp; Responsibility to our Youth through Music &amp; Dance.</p>
             <div class="footer-links">
                 <a href="https://www.facebook.com/Molo-Brass-Band" target="_blank" rel="noopener">Facebook</a>
-                <a href="mailto:info@molobrassband.co.za">Email</a>
+                <a href="mailto:assist@molobrass-band.co.za">Email</a>
                 <a href="tel:+27795574390">Call Us</a>
             </div>
             <p class="footer-copy">&copy; 2026 Molo Brass Band. All rights reserved.</p>
@@ -267,6 +301,68 @@
 
             setInterval(spawnNote, 600);
             for (let i = 0; i < 6; i++) setTimeout(spawnNote, i * 300);
+        })();
+
+        // === DONATIONS (PAYFAST) ===
+        (function() {
+            const PAYFAST_LIVE = false; // set to true when ready to accept real payments
+            const form = document.getElementById('payfastForm');
+            if (!form) return;
+            form.action = PAYFAST_LIVE
+                ? 'https://www.payfast.co.za/eng/process'
+                : 'https://sandbox.payfast.co.za/eng/process';
+            const mode = document.getElementById('payfastMode');
+            if (mode) {
+                mode.textContent = PAYFAST_LIVE ? 'LIVE PAYMENTS' : 'SANDBOX TEST MODE';
+                mode.classList.add(PAYFAST_LIVE ? 'live' : 'sandbox');
+            }
+            const amountInput = form.querySelector('input[name="amount"]');
+            const custom = document.getElementById('donationCustom');
+            const presetBtns = document.querySelectorAll('.donation-amount');
+            presetBtns.forEach(btn => btn.addEventListener('click', () => {
+                presetBtns.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                custom.value = '';
+                amountInput.value = btn.dataset.amount;
+            }));
+            custom.addEventListener('input', () => {
+                presetBtns.forEach(b => b.classList.remove('selected'));
+                amountInput.value = custom.value;
+            });
+            form.addEventListener('submit', (e) => {
+                const amt = parseFloat(amountInput.value);
+                if (!amt || amt <= 0) {
+                    e.preventDefault();
+                    alert('Please choose or enter a donation amount.');
+                }
+            });
+        })();
+
+        // === EMAILJS CONTACT FORM ===
+        (function() {
+            emailjs.init('EKg_YQSfLX6estEh-');
+            const form = document.getElementById('contactForm');
+            const status = document.getElementById('formStatus');
+            const btn = document.getElementById('contactSubmitBtn');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                btn.disabled = true;
+                btn.textContent = 'Sending...';
+                emailjs.sendForm('service_dkcrkgo', 'template_irkhkii', form)
+                    .then(() => {
+                        status.className = 'form-status success';
+                        status.textContent = 'Message sent successfully! We will get back to you soon.';
+                        form.reset();
+                    })
+                    .catch(() => {
+                        status.className = 'form-status error';
+                        status.textContent = 'Sorry, something went wrong. Please try again or email assist@molobrass-band.co.za directly.';
+                    })
+                    .finally(() => {
+                        btn.disabled = false;
+                        btn.textContent = 'Send Message';
+                    });
+            });
         })();
     </script>
 </body>
