@@ -428,12 +428,14 @@ img { max-width: 100%; height: auto; display: block; }
 .btn-donate {
     position: relative; z-index: 1;
     background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-    color: var(--bg-dark); font-size: 1rem; padding: 16px 52px;
+    color: #14100a; font-size: 1rem; font-weight: 800;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.25);
+    padding: 16px 52px;
     box-shadow: 0 0 30px var(--glow), inset 0 1px 0 rgba(255,255,255,0.3);
     animation: donateGlow 2.5s ease-in-out infinite;
 }
 .btn-donate:hover {
-    color: var(--bg-dark); transform: translateY(-2px);
+    color: #14100a; transform: translateY(-2px);
     box-shadow: 0 0 50px var(--glow);
 }
 @keyframes donateGlow {

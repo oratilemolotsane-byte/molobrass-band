@@ -157,7 +157,7 @@
                 <form id="payfastForm" method="post">
                     <input type="hidden" name="merchant_id" value="21835259">
                     <input type="hidden" name="merchant_key" value="sej2duf8l3gym">
-                    <input type="hidden" name="amount" value="100">
+                    <input type="hidden" name="amount" value="100.00">
                     <input type="hidden" name="item_name" value="Donation to Molo Brass Band">
                     <input type="hidden" name="item_description" value="Support the Molo Brass Band youth programme.">
                     <input type="hidden" name="email_confirmation" value="1">
@@ -305,7 +305,7 @@
 
         // === DONATIONS (PAYFAST) ===
         (function() {
-            const PAYFAST_LIVE = false; // set to true when ready to accept real payments
+            const PAYFAST_LIVE = true;
             const form = document.getElementById('payfastForm');
             if (!form) return;
             form.action = PAYFAST_LIVE
@@ -323,11 +323,12 @@
                 presetBtns.forEach(b => b.classList.remove('selected'));
                 btn.classList.add('selected');
                 custom.value = '';
-                amountInput.value = btn.dataset.amount;
+                amountInput.value = Number(btn.dataset.amount).toFixed(2);
             }));
             custom.addEventListener('input', () => {
                 presetBtns.forEach(b => b.classList.remove('selected'));
-                amountInput.value = custom.value;
+                const val = parseFloat(custom.value);
+                amountInput.value = val > 0 ? val.toFixed(2) : '';
             });
             form.addEventListener('submit', (e) => {
                 const amt = parseFloat(amountInput.value);
