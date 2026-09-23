@@ -53,6 +53,7 @@
             <div class="hero-cta">
                 <a href="#contact" class="btn btn-primary">Book Us</a>
                 <a href="#about" class="btn btn-outline">Learn More</a>
+                <button type="button" id="trumpetBtn" class="btn btn-outline" aria-label="Play trumpet fanfare">&#9835; Play Our Horn</button>
             </div>
         </div>
         <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
@@ -168,7 +169,16 @@
                     <input type="hidden" name="return_url" value="https://molobrass-band.co.za/#donate">
                     <input type="hidden" name="cancel_url" value="https://molobrass-band.co.za/#donate">
                     <button type="submit" class="btn btn-donate">Donate Now</button>
+                    <p class="donate-tax">Tax Exemption No. 930076865 &mdash; donations are tax deductible.</p>
                 </form>
+                <div class="banking-info">
+                    <h4>Prefer Direct EFT?</h4>
+                    <p>Donate straight into our account &mdash; no processing fees, and your full donation reaches us.</p>
+                    <div class="banking-detail"><span>Bank</span><strong>Standard Bank</strong></div>
+                    <div class="banking-detail"><span>Account No.</span><strong>10174179519</strong></div>
+                    <div class="banking-detail"><span>Account Type</span><strong>Cheque</strong></div>
+                    <div class="banking-detail"><span>Branch Code</span><strong>051001</strong></div>
+                </div>
             </div>
             <div class="support-cta"><a href="#contact" class="btn btn-primary btn-large">Sponsor or Fund Us</a></div>
         </div>
@@ -191,7 +201,7 @@
             <div class="contact-grid">
                 <div class="contact-info">
                     <div class="contact-item"><h4>Address</h4><p>185 Swaan Street<br>Jan Niemad Park<br>Pretoria, 0186<br>Gauteng, South Africa</p></div>
-                    <div class="contact-item"><h4>Phone</h4><p><a href="tel:+27795574390">079 557 4390</a><br><a href="tel:+27843239561">084 323 9561</a></p></div>
+                    <div class="contact-item"><h4>Phone</h4><p><a href="tel:+27795574390">079 557 4390</a><br><a href="tel:+27843239561">084 323 9561</a><br><a href="tel:+27120514394">012 051 4394</a></p></div>
                     <div class="contact-item"><h4>Email</h4><p><a href="mailto:assist@molobrass-band.co.za">assist@molobrass-band.co.za</a></p></div>
                     <div class="contact-item"><h4>Follow Us</h4><p><a href="https://www.facebook.com/Molo-Brass-Band" target="_blank" rel="noopener">Facebook</a></p></div>
                 </div>
@@ -218,6 +228,7 @@
                 <a href="mailto:assist@molobrass-band.co.za">Email</a>
                 <a href="tel:+27795574390">Call Us</a>
             </div>
+            <p class="footer-reg">Registered NPO No. 260993 &bull; Public Benefit / Tax Exemption No. 930076865<br>185 Swaan Street, Jan Niemand Park, Pretoria, 0186</p>
             <p class="footer-copy">&copy; 2026 Molo Brass Band. All rights reserved.</p>
         </div>
     </footer>
@@ -339,6 +350,87 @@
                     e.preventDefault();
                     alert('Please choose or enter a donation amount.');
                 }
+            });
+        })();
+
+        // === TRUMPET FANFARE (WEB AUDIO) ===
+        (function() {
+            const btn = document.getElementById('trumpetBtn');
+            if (!btn) return;
+            let ctx = null, labelTimer = null;
+
+            function getCtx() {
+                if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+                if (ctx.state === 'suspended') ctx.resume();
+                return ctx;
+            }
+
+            function trumpetNote(semi, start, dur, vel) {
+                const c = getCtx();
+                const now = c.currentTime + start;
+                const freq = 440 * Math.pow(2, semi / 12);
+
+                const osc = c.createOscillator();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(freq * 0.97, now);
+                osc.frequency.exponentialRampToValueAtTime(freq, now + 0.06);
+
+                const osc2 = c.createOscillator();
+                osc2.type = 'square';
+                osc2.frequency.value = freq;
+
+                const filter = c.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = 2800;
+                filter.Q.value = 1.2;
+
+                const g2 = c.createGain();
+                g2.gain.value = 0.22;
+
+                const gain = c.createGain();
+                gain.gain.setValueAtTime(0, now);
+                gain.gain.linearRampToValueAtTime(vel, now + 0.08);
+                gain.gain.setValueAtTime(vel * 0.9, now + dur * 0.6);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + dur);
+
+                const lfo = c.createOscillator();
+                lfo.frequency.value = 5.2;
+                const lfoGain = c.createGain();
+                lfoGain.gain.value = 3.5;
+                lfo.connect(lfoGain);
+                lfoGain.connect(osc.frequency);
+
+                osc.connect(filter);
+                osc2.connect(g2);
+                g2.connect(filter);
+                filter.connect(gain);
+                gain.connect(c.destination);
+
+                osc.start(now); osc2.start(now); lfo.start(now);
+                osc.stop(now + dur + 0.1); osc2.stop(now + dur + 0.1); lfo.stop(now + dur + 0.1);
+            }
+
+            function playFanfare() {
+                const n = (semi, start, dur, vel) => trumpetNote(semi, start, dur, vel);
+                n(3, 0.00, 0.55, 0.70);   // C5
+                n(7, 0.35, 0.55, 0.70);   // E5
+                n(10, 0.70, 0.55, 0.75);  // G5
+                n(15, 1.05, 1.00, 0.80);  // C6
+                n(10, 1.95, 0.45, 0.70);  // G5
+                n(12, 2.45, 0.45, 0.70);  // A5
+                n(15, 2.95, 1.50, 0.85);  // C6 (hold)
+            }
+
+            btn.addEventListener('click', () => {
+                getCtx();
+                playFanfare();
+                btn.classList.add('playing');
+                btn.textContent = '\u266B Listen...';
+                clearTimeout(labelTimer);
+                labelTimer = setTimeout(() => {
+                    btn.classList.remove('playing');
+                    btn.textContent = '\u266A Play Our Horn';
+                }, 3700);
             });
         })();
 
